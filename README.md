@@ -24,6 +24,7 @@ Pretrained student model and teacher models' PCA-whitening checkpoints can be do
 | GeM, AP-GeM, SOLAR | R18 | rg_rag_rs_to_r18_ep200 |
 | DOLG, DELG | R18 | ro_re_to_r18_ep3k |
 | DOLG, DELG | R34 | ro_re_to_r34_ep3k |
+
 To perform evaluation using our pretrained weights:
 ```shell
 python oxford_paris_eval.py -a resnet18/34 -r PATH_TO_CHECKPOINT -dp PATH_TO_DATASET --embed_dim 512 -ms -p 3
@@ -36,6 +37,7 @@ Pretrained student model and teacher models' PCA-whitening checkpoints can be do
 | :-: | :-: | :-: |
 | MoCoV3, BarlowTwins | R18 | mc_bt_to_r18_ep3k |
 | MoCoV3, BarlowTwins | R34 | mc_bt_to_r34_ep3k |
+
 To perform evaluation using our pretrained weights:
 ```shell
 python svd_eval.py -a resnet18/34 -dm config/svd.yaml --sim_fn cf -r PATH_TO_CHECKPOINT --embed_dim 512
