@@ -58,6 +58,10 @@ def parse_args():
         help="checkpoint model to resume"
     )
     parser.add_argument(
+        "--path_to_pretrained_weights", default="/path/to/pretrained_weights", type=str, metavar="DIR",
+        help="path to pretrained teacher models and whitening weights"
+    )
+    parser.add_argument(
         "--world_size", default=8, type=int,
         help="number of workers"
     )

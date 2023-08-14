@@ -23,18 +23,18 @@ archs = {
 
 
 class MultiTeacher(nn.Module):
-    def __init__(self, *teachers, p=3., embed_dim=512):
+    def __init__(self, path_to_pretrained_weights, *teachers, p=3., embed_dim=512):
         super().__init__()
         self.teachers = teachers
         encoders = list()
         for teacher in self.teachers:
-            encoders.append(teacher_models[teacher](pretrained=True, gem_p=p))
+            encoders.append(teacher_models[teacher](path_to_pretrained_weights, pretrained=True, gem_p=p))
         self.encoders = nn.ModuleList(encoders)
         self.embed_dims = [encoder.embed_dim for encoder in self.encoders]
         
         norm_layers = list()
         for teacher in self.teachers:
-            norm_layers.append(pca_layers[teacher](embed_dim=embed_dim))
+            norm_layers.append(pca_layers[teacher](path_to_pretrained_weights, embed_dim=embed_dim))
         self.norm_layers = nn.ModuleList(norm_layers)
         self.embed_dims = [norm_layer.dim2 for norm_layer in self.norm_layers]
     
@@ -59,7 +59,7 @@ class MultiTeacherDistillModel(nn.Module):
         self.base_encoder.avgpool = GeneralizedMeanPooling(args.p)
         self.base_encoder.fc = nn.Linear(self.base_encoder.embed_dim, args.embed_dim)
         self.embed_dim = self.base_encoder.embed_dim
-        self.teacher_encoders = MultiTeacher(*args.teachers, p=args.p, embed_dim=args.embed_dim)
+        self.teacher_encoders = MultiTeacher(args.path_to_pretrained_weights, *args.teachers, p=args.p, embed_dim=args.embed_dim)
         for param in self.teacher_encoders.parameters():
             param.requires_grad = False
 

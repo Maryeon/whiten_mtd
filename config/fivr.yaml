@@ -1,7 +1,0 @@
-all_video_id: /mnt/nas/workspace/public/fivr/FIVR-200K/dataset/youtube_ids.txt
-groundtruth: /mnt/nas/workspace/public/fivr/FIVR-200K/dataset/annotation.json
-
-video_root_paths:
-  - /mnt/workspace/public/fivr/videos
-frame_root_path: /mnt/workspace/public/fivr/frames
-frame_count_file: /mnt/workspace/public/fivr/num_frames

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding=utf-8
 
+import os
 import torch
 import torch.nn as nn
 from .resnet import resnet50, resnet101
@@ -11,7 +12,7 @@ from .dolg.model import DOLG
 from .gem_pooling import GeneralizedMeanPooling
 
 
-def resnet101_gem(gem_p=3., **kwargs):
+def resnet101_gem(path_to_pretrained_weights, gem_p=3., **kwargs):
 
     class ResNet101_GeM(nn.Module):
         def __init__(self, backbone, fc):
@@ -25,7 +26,7 @@ def resnet101_gem(gem_p=3., **kwargs):
             x = self.fc(x)
             return x
 
-    pretrained_weights = "/home/zju/jieche.mz/pretrained_models/gl18-tl-resnet101-gem-w-a4d43db.pt"
+    pretrained_weights = os.path.join(path_to_pretrained_weights, "gl18-tl-resnet101-gem-w-a4d43db.pt")
     checkpoint = torch.load(pretrained_weights, map_location="cpu")
     backbone = resnet101(pretrained=False, num_classes=0)
     backbone.avgpool = GeneralizedMeanPooling(gem_p)
@@ -45,8 +46,8 @@ def resnet101_gem(gem_p=3., **kwargs):
     return model
 
 
-def resnet101_ap_gem(gem_p=3., **kwargs):
-    pretrained_weights = "/home/zju/jieche.mz/pretrained_models/Resnet101-AP-GeM-LM18.pt"
+def resnet101_ap_gem(path_to_pretrained_weights, gem_p=3., **kwargs):
+    pretrained_weights = os.path.join(path_to_pretrained_weights, "Resnet101-AP-GeM-LM18.pt")
     checkpoint = torch.load(pretrained_weights, map_location="cpu")
     model = resnet101(pretrained=False, num_classes=checkpoint["model_options"]["out_dim"])
     model.avgpool = GeneralizedMeanPooling(gem_p)
@@ -64,7 +65,7 @@ def resnet101_ap_gem(gem_p=3., **kwargs):
     return model
 
 
-def resnet101_solar(gem_p=3., **kwargs):
+def resnet101_solar(path_to_pretrained_weights, gem_p=3., **kwargs):
 
     class ResNet101_SOLAR(nn.Module):
         def __init__(self, backbone, fc, gem_p):
@@ -80,7 +81,7 @@ def resnet101_solar(gem_p=3., **kwargs):
             x = self.fc(x)
             return x
 
-    pretrained_weights = "/home/zju/jieche.mz/pretrained_models/resnet101-solar-best.pth"
+    pretrained_weights = os.path.join(path_to_pretrained_weights, "resnet101-solar-best.pth")
     checkpoint = torch.load(pretrained_weights, map_location="cpu")
     backbone = ResNetSOAs()
     model = ResNet101_SOLAR(
@@ -104,8 +105,8 @@ def resnet101_solar(gem_p=3., **kwargs):
     return model
 
 
-def resnet101_delg(pretrained=True, gem_p=3.):
-    pretrained_weights = "/home/zju/jieche.mz/pretrained_models/r101_delg_s512.pyth"
+def resnet101_delg(path_to_pretrained_weights, pretrained=True, gem_p=3.):
+    pretrained_weights = os.path.join(path_to_pretrained_weights, "r101_delg_s512.pyth")
     model = R101_DELG()
 
     if pretrained:
@@ -120,8 +121,8 @@ def resnet101_delg(pretrained=True, gem_p=3.):
     return model
 
 
-def resnet101_dolg(pretrained=True, gem_p=3.):
-    pretrained_weights = "/home/zju/jieche.mz/pretrained_models/r101_dolg_512.pyth"
+def resnet101_dolg(path_to_pretrained_weights, pretrained=True, gem_p=3.):
+    pretrained_weights = os.path.join(path_to_pretrained_weights, "r101_dolg_512.pyth")
     model = DOLG()
 
     if pretrained:
@@ -134,8 +135,8 @@ def resnet101_dolg(pretrained=True, gem_p=3.):
     return model
 
 
-def mocov3(pretrained=True, with_head=False, gem_p=3.):
-    pretrained_moco = '/home/zju/jieche.mz/pretrained_models/mocov3_1000ep.pth.tar'
+def mocov3(path_to_pretrained_weights, pretrained=True, with_head=False, gem_p=3.):
+    pretrained_moco = os.path.join(path_to_pretrained_weights, 'mocov3_1000ep.pth.tar')
     
     model = resnet50(pretrained=False, num_classes=0)
     model.avgpool = GeneralizedMeanPooling(gem_p)
@@ -176,7 +177,7 @@ def mocov3(pretrained=True, with_head=False, gem_p=3.):
     return model
 
 
-def barlowtwins(pretrained=True, with_head=False, gem_p=3.):
+def barlowtwins(path_to_pretrained_weights, pretrained=True, with_head=False, gem_p=3.):
     model = resnet50(pretrained=False, num_classes=0)
     model.avgpool = GeneralizedMeanPooling(gem_p)
 
@@ -194,7 +195,7 @@ def barlowtwins(pretrained=True, with_head=False, gem_p=3.):
         model.embed_dim = 8192
 
     if pretrained:
-        checkpoint_file = '/home/zju/jieche.mz/pretrained_models/barlowtwins_full.pth.tar'
+        checkpoint_file = os.path.join(path_to_pretrained_weights, 'barlowtwins_full.pth.tar')
         checkpoint = torch.load(checkpoint_file, map_location='cpu')
         state_dict = checkpoint["model"]
         for k in list(state_dict.keys()):

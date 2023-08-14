@@ -70,6 +70,10 @@ def parse_args():
         help="checkpoint model to resume"
     )
     parser.add_argument(
+        "--path_to_pretrained_weights", default="/path/to/pretrained_weights", type=str, metavar="DIR",
+        help="path to pretrained teacher models and whitening weights"
+    )
+    parser.add_argument(
         "-ms", "--multiscale", action="store_true",
         help="multiscale testing"
     )
@@ -158,7 +162,7 @@ def main_worker(gpu, ngpus_per_node, args):
 
     # build teacher model
     if args.teacher is not None:
-        model = teacher_models[args.teacher](gem_p=args.p)
+        model = teacher_models[args.teacher](args.path_to_pretrained_weights, gem_p=args.p)
 
     model.cuda(device)
 

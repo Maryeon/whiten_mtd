@@ -16,7 +16,7 @@ from PIL import ImageFilter, ImageOps
 from models import distill_model
 from datasets.svd.core import Frame, MetaData
 from datasets.svd.loader import DistributedDistillLoader
-from loss import CrossViewSimilarityDistillLoss
+from loss import MultiTeacherDistillLoss
 import utils
 import metric
 
@@ -55,11 +55,15 @@ def parse_args():
         help="checkpoint model to resume"
     )
     parser.add_argument(
+        "--path_to_pretrained_weights", default="/path/to/pretrained_weights", type=str, metavar="DIR",
+        help="path to pretrained teacher models and whitening weights"
+    )
+    parser.add_argument(
         "--world_size", default=8, type=int,
         help="number of workers"
     )
     parser.add_argument(
-        "--dist_url", default="tcp://localhost:1234", type=str,
+        "--dist_url", default="tcp://localhost:2023", type=str,
         help='url used to set up distributed training'
     )
     parser.add_argument(
@@ -91,7 +95,7 @@ def parse_args():
         help='weight decay (default: 1e-6)'
     )
     parser.add_argument(
-        "--snapshot_step", default=5, type=int, metavar="N",
+        "--snapshot_step", default=10, type=int, metavar="N",
         help="interval to dump checkpoint"
     )
     parser.add_argument(
@@ -103,11 +107,7 @@ def parse_args():
         help='embedding dimension'
     )
     parser.add_argument(
-        "--wopca", action="store_true",
-        help="do not pca-whitening teacher models"
-    )
-    parser.add_argument(
-        "-s", "--strategy", default=None, type=str,
+        "-s", "--strategy", default="maxmin", type=str,
         help="similarity fusion strategy"
     )
     return parser.parse_args()
@@ -219,7 +219,7 @@ def main_worker(gpu, ngpus_per_node, args):
         T_max=args.epochs * len(train_loader), eta_min=1e-6
     )
 
-    loss_fn = CrossViewSimilarityDistillLoss(
+    loss_fn = MultiTeacherDistillLoss(
         dt=args.t, teachers=args.teachers, s=args.strategy
     ).to(device)
 
