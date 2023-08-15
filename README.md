@@ -16,14 +16,14 @@ We use [Google Landmark V2 (GLDv2)](https://github.com/cvdfoundation/google-land
 Other two datasets [Roxford5k and RParis6k](http://cmp.felk.cvut.cz/revisitop/) should also be downloaded for evaluation.
 
 ## Evaluation
+Pretrained weights of teacher models and their PCA-Whitening layer can be downloaded from [here](https://drive.google.com/drive/folders/1-9BOzGBCNY6FrGCmpefSfispWHfiVMOd?usp=sharing).
 ### Instance image retrieval
-Pretrained student model and teacher models' PCA-whitening checkpoints can be downloaded from the links below:
+Pretrained student model checkpoints can be downloaded from the links below:
 
 | Teachers | Student | Links |
 | :-: | :-: | :-: |
-| GeM, AP-GeM, SOLAR | R18 | rg_rag_rs_to_r18_ep200 |
-| DOLG, DELG | R18 | ro_re_to_r18_ep3k |
-| DOLG, DELG | R34 | ro_re_to_r34_ep3k |
+| DOLG, DELG | R18 | [ro_re_to_r18_ep3k](https://drive.google.com/file/d/1TDi9WelEu7Ks5fAOIMQftSroZzDXzKaM/view?usp=sharing) |
+| DOLG, DELG | R34 | [ro_re_to_r34_ep3k](https://drive.google.com/file/d/1XVnURGdqdmJ1GiMswNEgHLji_NCpdBCV/view?usp=sharing) |
 
 To perform evaluation using our pretrained weights:
 ```shell
@@ -31,12 +31,12 @@ python oxford_paris_eval.py -a resnet18/34 -r PATH_TO_CHECKPOINT -dp PATH_TO_DAT
 ```
 
 ### Video retrieval
-Pretrained student model and teacher models' PCA-whitening checkpoints can be downloaded from the links below:
+Pretrained student model checkpoints can be downloaded from the links below:
 
 | Teachers | Student | Links |
 | :-: | :-: | :-: |
-| MoCoV3, BarlowTwins | R18 | mc_bt_to_r18_ep3k |
-| MoCoV3, BarlowTwins | R34 | mc_bt_to_r34_ep3k |
+| MoCoV3, BarlowTwins | R18 | [mc_bt_to_r18_ep3k](https://drive.google.com/file/d/1yKv2-TGHwaAlQOugLpiOjo64TpHaM176/view?usp=sharing) |
+| MoCoV3, BarlowTwins | R34 | [mc_bt_to_r34_ep3k](https://drive.google.com/file/d/1GrkzoeT8QUAqY6B7Jio6TqkDa0rsb7PN/view?usp=sharing) |
 
 To perform evaluation using our pretrained weights:
 ```shell
