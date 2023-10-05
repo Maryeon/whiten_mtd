@@ -1,5 +1,7 @@
 .DS_Store
 /checkpoints
+/pretrained_models
+.gitignore
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

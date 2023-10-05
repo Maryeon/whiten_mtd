@@ -22,6 +22,8 @@ Pretrained student model checkpoints can be downloaded from the links below:
 
 | Teachers | Student | Links |
 | :-: | :-: | :-: |
+| GeM, AP-GeM, SOLAR | R18 | [rg_rag_rs_to_r18_ep200](https://drive.google.com/file/d/1qLp_AoI5SRNs9AV3o8SzJchyXwBFSsDL/view?usp=sharing) |
+| GeM, AP-GeM, SOLAR | R34 | [rg_rag_rs_to_r34_ep200](https://drive.google.com/file/d/1wsPIgGnXw6TPmVDtyFLYXSFF1YzRePCE/view?usp=sharing) |
 | DOLG, DELG | R18 | [ro_re_to_r18_ep3k](https://drive.google.com/file/d/1TDi9WelEu7Ks5fAOIMQftSroZzDXzKaM/view?usp=sharing) |
 | DOLG, DELG | R34 | [ro_re_to_r34_ep3k](https://drive.google.com/file/d/1XVnURGdqdmJ1GiMswNEgHLji_NCpdBCV/view?usp=sharing) |
 
