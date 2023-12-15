@@ -65,7 +65,7 @@ def parse_args():
         help='number of samples to train PCA transform'
     )
     parser.add_argument(
-        "--gld_root_path", default="/home/zju/jieche.mz/gldv2", type=str, metavar="PATH",
+        "--gld_root_path", default="/path/to/gldv2", type=str, metavar="PATH",
         help="frame root path of GLDv2 dataset"
     )
     parser.add_argument(
