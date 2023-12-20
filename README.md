@@ -1,5 +1,5 @@
 # Whiten_MTD
-Anonymous official repository of paper "Let All be Whitened: Multi-teacher Distillation for Efficient Visual Retrieval" submitted to AAAI 2024.
+Official repository of paper "Let All be Whitened: Multi-teacher Distillation for Efficient Visual Retrieval" accepted by AAAI 2024.
 ![teaser](assets/teaser.png)
 
 ## Prepare environment
